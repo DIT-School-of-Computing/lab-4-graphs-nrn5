@@ -11,7 +11,7 @@ public class Main
         processing.core.PApplet.runSketch( a, new Arrays());
     }
 
-	public void doDogStuff()
+	/*public void doDogStuff()
 	{
 		// Create a new Dog called Misty
 		// Call the constructor
@@ -26,7 +26,7 @@ public class Main
 	{
 		// Put your code here
 		System.out.println("cats are from space");
-	}
+	}*/
 	
 	public static void main(String[] args)
 	{
@@ -35,7 +35,7 @@ public class Main
 		
 		Main m = new Main();
 
-		m.doDogStuff();
+		/*m.doDogStuff();
 
 		m.doCatStuff();
 
@@ -60,7 +60,7 @@ public class Main
 		System.out.println(a.getName());
 		System.out.println("C: " + c.getName());
 		
-
+		*/
 
 		m.helloProcessing();
 	}
