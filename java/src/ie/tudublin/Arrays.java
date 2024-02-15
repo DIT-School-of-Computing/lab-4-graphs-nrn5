@@ -215,6 +215,33 @@ public class Arrays extends PApplet
 				textSize(20);
 				text("3:  Rainfall piechart", 220, 30);
 
+				int diameter = 400;
+				int centreX = width/2, centreY = height/2;
+				float startAngle = 0, endAngle = 0;
+				circle(centreX, centreY, diameter);
+				// get total rain so can get percentage of rain in range 0-360
+				float ttlRain = 0;
+				for (float f : rainfall) {
+					ttlRain += f;
+				}
+				// so much maths... pie pieces arcs
+				for (int i = 0; i < months.length ; i++) {
+					float angle = map1(rainfall[i], 0, ttlRain, 0, 360);
+					endAngle = radians(angle) + startAngle;
+					fill(20*i, 360, 360);
+					arc(centreX, centreY, diameter, diameter, startAngle, endAngle);
+					
+					// text will start at the circumference of the circle + an offset
+					float textRad = diameter/2 + 30;
+					// find the middle of the andle to find mid to put text
+					float middleAngle = (startAngle + endAngle) / 2;
+					float x = centreX + textRad * cos(middleAngle);
+					float y = centreY + textRad * sin(middleAngle);
+					textAlign(CENTER, CENTER);
+					text(months[i], x, y);
+					// update start angle for next arc
+					startAngle = endAngle;	
+				}
 				break;
 			}
 
@@ -230,9 +257,7 @@ public class Arrays extends PApplet
 
 			default: {
 				background(0);
-				text("DEF PRESS 1 FOR BARCHART", 50, 100);
 				break;
-
 			}
 		}
 	
