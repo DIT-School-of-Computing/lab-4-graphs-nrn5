@@ -33,7 +33,7 @@ public class Arrays extends PApplet
 		// changed size for better text
 		size(600, 600);
 
-		String[] m1 = months;
+		//String[] m1 = months;
 		
 		//months[0] = "XXX";
 		//print(m1[0]);
@@ -42,9 +42,9 @@ public class Arrays extends PApplet
 		{
 			println("Month: " + months[i] + "\t" + rainfall[i]);
 		}
-		for (String s : m1) {
-			println(s);
-		}
+		//for (String s : m1) {
+		//	println(s);
+		//}
 
 		int minIndex = 0;
 		for(int i= 0 ; i < rainfall.length ; i ++)
@@ -111,6 +111,7 @@ public class Arrays extends PApplet
 				int x_axisEndX = width - axisX;
 
 				stroke(255);
+				fill(255);
 
 				// x axis of barchart
 				line(axisX, axisY, axisX, y_axisEndY);
@@ -124,19 +125,7 @@ public class Arrays extends PApplet
 
 				// get range so we can randomise rains
 				int space = (axisY-y_axisEndY)/months.length;
-				int minI = 0;
-				for(int i= 0 ; i < rainfall.length ; i ++) {
-					if (rainfall[i] < rainfall[minI]) {
-						minI = i;
-					}
-				}
-				int maxI = 0;
-				for(int i= 0 ; i < rainfall.length ; i ++) {
-					if (rainfall[i] > rainfall[maxI]) {
-						maxI = i;
-					}
-				}
-				float range = rainfall[maxI] - rainfall[minI];
+				float range = max(rainfall) - min(rainfall);
 				int ticks = ceil(range/months.length);
 				
 				// ticks
@@ -155,8 +144,9 @@ public class Arrays extends PApplet
 				int barWidth = (x_axisEndX-axisX)/months.length;
 				// bars
 				for (int i = 0 ; i < months.length ; i++) {
-					float bar = map1(i, 0, months.length, axisX, axisY);
-					rect(bar, axisY, barWidth, -rainfall[i]);
+					float barHeight = map1(i, 0, months.length, axisX, axisY);
+					fill(20*i, 360, 360);
+					rect(barHeight, axisY, barWidth, -rainfall[i]);
 				}
 
 				/* 
@@ -172,11 +162,58 @@ public class Arrays extends PApplet
 			}
 
 			case 2: {
+				background(0);
+				stroke(255);
+				fill(255);
+
+				int axisX = 40, axisY = 550, y_axisEndY = height - axisY;
+				int x_axisEndX = width - axisX;
+				// x axis of barchart
+				line(axisX, axisY, axisX, y_axisEndY);
+				// y acis of barchart
+				line(axisX, axisY, x_axisEndX, axisY);
+
+				// top text 
+				textSize(20);
+				text("2:  Rainfall trend chart", 210, 30);
+
+				int space = (axisY-y_axisEndY)/months.length;
+				float range = max(rainfall) - min(rainfall);
+				int ticks = ceil(range/months.length);
+				// ticks
+				for (int i = 0; i <= months.length ; i++) {
+					textSize(15);
+					text(ticks*i, 15, 550-space*i);
+				}
+				space = (x_axisEndX-axisX)/months.length;
+				// text
+				for (int i = 0; i < months.length ; i++) {
+					textSize(15);
+					text(months[i], 50+space*i, 570);
+					stroke(100);
+					//line(85+space*i, axisY, 85+space*i, 50);
+				}
+
+				// lines
+				for (int i = 1 ; i < months.length ; i++) {
+					float lineX = axisX + i * space;
+					float lineY = (map1(rainfall[i], min(rainfall), max(rainfall), axisY, y_axisEndY));
+					float line2X = axisX + (i-1) * space;
+					float line2Y = (map1(rainfall[i-1], min(rainfall), max(rainfall), axisY, y_axisEndY));
+					stroke(255);
+					line(lineX+space, lineY, line2X+space, line2Y);
+				}
 
 				break;
 			}
 
 			case 3: {
+				background(0);
+				stroke(255);
+				fill(255);
+
+				textSize(20);
+				text("3:  Rainfall piechart", 220, 30);
 
 				break;
 			}
