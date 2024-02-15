@@ -122,7 +122,7 @@ public class Arrays extends PApplet
 
 				// get range so we can randomise rains
 				int space = (axisY-y_axisEndY)/months.length;
-				float range = max(rainfall) - min(rainfall);
+				float range = max(rainfall);
 				int ticks = ceil(range/months.length);
 				
 				// ticks
@@ -131,7 +131,7 @@ public class Arrays extends PApplet
 					text(ticks*i, 15, 550-space*i);
 				}
 
-				space = (x_axisEndX-axisX)/months.length;
+				space = (x_axisEndX-axisX)/13;
 				// text
 				for (int i = 0; i < months.length ; i++) {
 					textSize(15);
@@ -170,7 +170,7 @@ public class Arrays extends PApplet
 				text("2:  Rainfall trend chart", 210, 30);
 
 				int space = (axisY-y_axisEndY)/months.length;
-				float range = max(rainfall) - min(rainfall);
+				float range = max(rainfall);
 				int ticks = ceil(range/months.length);
 				// ticks
 				for (int i = 0; i <= months.length ; i++) {
