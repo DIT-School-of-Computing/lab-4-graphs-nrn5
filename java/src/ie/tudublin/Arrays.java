@@ -11,7 +11,6 @@ public class Arrays extends PApplet
 	float[] rainfall = {200, 260, 300, 150, 100, 50, 10, 40, 67, 160, 400, 420};
 
 	int mode = 0;
-
 	public float map1(float a, float b, float c, float d, float e)
 	{
 		float r1 = c -b;
@@ -23,9 +22,9 @@ public class Arrays extends PApplet
 
 	void randomize()
 	{
-		//for (int i = 0; i < rainfall.length; i++) {
-		//	rainfall[i] = random(500);
-		//}
+		for (int i = 0; i < rainfall.length; i++) {
+			rainfall[i] = random(500);
+		}
 	}
 
 	public void settings()
@@ -37,11 +36,6 @@ public class Arrays extends PApplet
 		
 		//months[0] = "XXX";
 		//print(m1[0]);
-		
-		for(int i = 0; i < months.length; i ++)
-		{
-			println("Month: " + months[i] + "\t" + rainfall[i]);
-		}
 		//for (String s : m1) {
 		//	println(s);
 		//}
@@ -91,7 +85,10 @@ public class Arrays extends PApplet
 		colorMode(HSB);
 		background(0);
 		randomize();
-		
+		for(int i = 0; i < months.length; i ++)
+		{
+			println("Month: " + months[i] + "\t" + rainfall[i]);
+		}
 	}
 	
 	public void draw()
@@ -144,20 +141,15 @@ public class Arrays extends PApplet
 				int barWidth = (x_axisEndX-axisX)/months.length;
 				// bars
 				for (int i = 0 ; i < months.length ; i++) {
-					float barHeight = map1(i, 0, months.length, axisX, axisY);
-					fill(20*i, 360, 360);
-					rect(barHeight, axisY, barWidth, -rainfall[i]);
-				}
+					float barX = axisX + i*barWidth;
+					// axisY - height to invert it
+					float barHeight = axisY - map(rainfall[i], 0, max(rainfall), axisY, y_axisEndY);
+					float barY = axisY - barHeight;
 
-				/* 
-				float w = width / (float)months.length;
-				for(int i = 0 ; i < months.length ;  i ++)
-				{
-					float x = map1(i, 0, months.length, 0, width);
-					rect(x, height, w, -rainfall[i]);
-				}
-				
-				*/
+					fill(20*i, 360, 360);
+
+					rect(barX, barY, barWidth, barHeight);
+				} 
 				break;
 			}
 
@@ -197,9 +189,9 @@ public class Arrays extends PApplet
 				// lines
 				for (int i = 1 ; i < months.length ; i++) {
 					float lineX = axisX + i * space;
-					float lineY = (map1(rainfall[i], min(rainfall), max(rainfall), axisY, y_axisEndY));
+					float lineY = (map1(rainfall[i], 0, max(rainfall), axisY, y_axisEndY));
 					float line2X = axisX + (i-1) * space;
-					float line2Y = (map1(rainfall[i-1], min(rainfall), max(rainfall), axisY, y_axisEndY));
+					float line2Y = (map1(rainfall[i-1], 0, max(rainfall), axisY, y_axisEndY));
 					stroke(255);
 					line(lineX+space, lineY, line2X+space, line2Y);
 				}
